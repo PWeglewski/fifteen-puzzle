@@ -1,8 +1,8 @@
 package pl.lodz.p.ai;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
-import static org.testng.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Checks if application compiles
