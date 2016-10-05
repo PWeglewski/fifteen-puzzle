@@ -1,3 +1,7 @@
 /target
 /.idea
 fifteen-puzzle.iml
+/.classpath
+/.project
+/.prefs
+/.settings
