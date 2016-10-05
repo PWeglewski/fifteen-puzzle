@@ -7,23 +7,26 @@ import pl.lodz.p.ai.utility.file.QuizReader;
 
 public class GraphNode {
 	static Logger log = Logger.getLogger(GraphNode.class.getName());
-	int[][] puzzleState = null;
-	GraphNode parent = null;
+	private int[][] puzzleState = null;
+	private GraphNode parent = null;
+	private int depth = -1;
 	//Moge zamienic z listy na tabele jak chcesz, ale nie zawsze bedzie 3, czyli
 	//jakas stala wiec dalem liste - no i łatwo mi sie dodaje elementy
 	//jak coś wystaw mi ticket w Kayako
 	//ja go zanalizuje, odpisze Ci, Ty mi wystawisz wtedy go poprawnie i po trzech
 	//dniach naprawie.
-	ArrayList<GraphNode> children = new ArrayList<GraphNode>();
+	private ArrayList<GraphNode> children = new ArrayList<GraphNode>();
 	
-	public GraphNode(int[][] puzzleState)
+	public GraphNode(GraphNode parent, int[][] puzzleState, int depth)
 	{
-		if(puzzleState.length != 4 || puzzleState[0].length != 4)
+		if(puzzleState== null || puzzleState.length != 4 || puzzleState[0].length != 4)
 		{
-			log.severe("Wrong puzzle size!");
+			log.severe("Wrong puzzle size or null!");
 			return;
 		}
 		this.puzzleState = puzzleState;
+		this.depth = depth;
+		this.parent = parent;
 	}
 	
 	public void setParent(GraphNode parent)
@@ -49,7 +52,7 @@ public class GraphNode {
 	{
 		if(child == null)
 		{
-			log.severe("Trying to add null as a chil");
+			log.severe("Trying to add null as a child");
 			return;
 		}
 		children.add(child);
@@ -81,5 +84,10 @@ public class GraphNode {
 			log.severe("Trying to get puzzle state from node which does not have it");
 		}
 		return puzzleState;
+	}
+	
+	public int getDepth()
+	{
+		return depth;
 	}
 }

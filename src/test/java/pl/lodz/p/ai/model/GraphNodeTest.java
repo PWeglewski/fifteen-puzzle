@@ -12,7 +12,7 @@ public class GraphNodeTest {
 	public void test() {
 		//dodam jakies lepsze testy, tutaj na razie takie na szybko czy 
 		//dziala to co chcialem sprawdzic
-		GraphNode node = new GraphNode(QuizReader.read("testSample.json"));
+		GraphNode node = new GraphNode(null, QuizReader.read("testSample.json"),0);
 		node.setParent(node);
 		node.addChild(node);
 		node.addChild(node);
