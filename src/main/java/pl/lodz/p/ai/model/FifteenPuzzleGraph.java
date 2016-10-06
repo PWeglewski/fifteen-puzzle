@@ -3,6 +3,7 @@ package pl.lodz.p.ai.model;
 import java.util.logging.Logger;
 
 import pl.lodz.p.ai.utility.file.QuizReader;
+import pl.lodz.p.ai.utility.puzzle.FifteenPuzzleChecker;
 
 public class FifteenPuzzleGraph {
 	static Logger log = Logger.getLogger(FifteenPuzzleGraph.class.getName());
@@ -43,25 +44,31 @@ public class FifteenPuzzleGraph {
 		}
 		//TODO jesli mozna przesunac, metodke dodac co sprawdza, utilowa
 		//i metodke co zamienia, w sumie to chyba ta sama
-		node.addChild(new GraphNode(node, createNewState(node.getPuzzleState(),0),node.getDepth() + 1));
-		node.addChild(new GraphNode(node, createNewState(node.getPuzzleState(),1),node.getDepth() + 1));
-		node.addChild(new GraphNode(node, createNewState(node.getPuzzleState(),2),node.getDepth() + 1));
-		node.addChild(new GraphNode(node, createNewState(node.getPuzzleState(),3),node.getDepth() + 1));
-		nodeCount += 4;
+		if(FifteenPuzzleChecker.createNextState(node.getPuzzleState(),0) != null)
+		{
+			nodeCount++;
+			node.addChild(new GraphNode(node, FifteenPuzzleChecker.createNextState(node.getPuzzleState(),0),node.getDepth() + 1));
+		}
+		if(FifteenPuzzleChecker.createNextState(node.getPuzzleState(),1) != null)
+		{
+			nodeCount++;
+			node.addChild(new GraphNode(node, FifteenPuzzleChecker.createNextState(node.getPuzzleState(),1),node.getDepth() + 1));
+		}
+		if(FifteenPuzzleChecker.createNextState(node.getPuzzleState(),2) != null)
+		{
+			nodeCount++;
+			node.addChild(new GraphNode(node, FifteenPuzzleChecker.createNextState(node.getPuzzleState(),2),node.getDepth() + 1));
+		}
+		if(FifteenPuzzleChecker.createNextState(node.getPuzzleState(),3) != null)
+		{
+			nodeCount++;
+			node.addChild(new GraphNode(node, FifteenPuzzleChecker.createNextState(node.getPuzzleState(),3),node.getDepth() + 1));
+		}
 		//log.info("count" + nodeCount);
 				
 		for(GraphNode child : node.getChildren())
 		{
 			this.addNodesToGraph(child);
 		}		
-	}
-	
-	//flag 0 to pusty idzie w gore
-	//flag 1 to pusty idzie w prawo
-	//flag 2 to pusty idzie w dol
-	//flag 3 to pusty idzie w lewo
-	private int[][] createNewState(int[][] currentState, int flag)
-	{
-		return root.getPuzzleState();
 	}
 }
