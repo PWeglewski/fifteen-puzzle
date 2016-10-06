@@ -55,11 +55,7 @@ public class FifteenPuzzleGraph {
 			this.addNodesToGraph(child);
 		}		
 	}
-	
-	//flag 0 to pusty idzie w gore
-	//flag 1 to pusty idzie w prawo
-	//flag 2 to pusty idzie w dol
-	//flag 3 to pusty idzie w lewo
+	//to nie bedzie uzywane, jest etoda w utilach do tego, podmienie potem
 	private int[][] createNewState(int[][] currentState, int flag)
 	{
 		return root.getPuzzleState();
