@@ -8,27 +8,23 @@ public class FifteenPuzzleGraphTest {
 
 	@Test
 	public void testFifteenPuzzleGraph() {
+		int[][] expectedArray = {{0, 1, 2, 3},
+								{4, 5, 6, 7},
+								{8, 9, 10, 11},
+								{12, 13, 14, 15}};
+		
+		int[][] expectedArray2 = {{1, 0, 2, 3},
+								 {4, 5, 6, 7},
+								 {8, 9, 10, 11},
+								 {12, 13, 14, 15}};
 		
 		FifteenPuzzleGraph graph = new FifteenPuzzleGraph("testSample.json");
 		graph.createGraph(3);
 		
-		assertThat(4).isEqualTo(4);
+		assertThat(graph.getRoot().getPuzzleState()).isEqualTo(expectedArray);
+		
+		//knowing in which order children are added
+		assertThat(graph.getRoot().getChildren().get(0).getPuzzleState()).isEqualTo(expectedArray2);
 		
 	}
-
-//	@Test
-//	public void testGetRoot() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testSetRoot() {
-//		fail("Not yet implemented");
-//	}
-//
-//	@Test
-//	public void testCreateGraph() {
-//		fail("Not yet implemented");
-//	}
-
 }
