@@ -33,6 +33,7 @@ public class FifteenPuzzleGraph {
 	public void createGraph(int graphDepth)
 	{
 		this.graphDepth = graphDepth;
+		this.nodeCount = 1;
 		addNodesToGraph(root);
 	}
 	
