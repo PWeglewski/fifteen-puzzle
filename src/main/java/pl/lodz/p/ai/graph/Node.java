@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 public class Node {
-    Logger log = Logger.getLogger(Node.class.getName());
+//    Logger log = Logger.getLogger(Node.class.getName());
     private PuzzleState puzzleState;
     private Node parent;
     private int depth;
@@ -39,10 +39,10 @@ public class Node {
     }
 
     public void addChild(Node child) {
-        if (child == null) {
-            log.severe("Trying to add null as a child");
-            return;
-        }
+//        if (child == null) {
+//            log.severe("Trying to add null as a child");
+//            return;
+//        }
         children.add(child);
     }
 

@@ -3,13 +3,11 @@ package pl.lodz.p.ai.graph;
 import pl.lodz.p.ai.puzzle.Direction;
 import pl.lodz.p.ai.puzzle.PuzzleState;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class Graph {
-    static Logger log = Logger.getLogger(Graph.class.getName());
+//    static Logger log = Logger.getLogger(Graph.class.getName());
     private Node root;
     private int graphDepth = 0;
     private int nodeCount = 0;
@@ -84,7 +82,7 @@ public class Graph {
 
         public Graph build() {
             graph = new Graph(root);
-            createChildren(root);
+            createChildrenStackImpl(root);
             return graph;
         }
 
@@ -103,6 +101,30 @@ public class Graph {
             }
             for (Node child : node.getChildren()) {
                 createChildren(child);
+            }
+        }
+
+        private void createChildrenStackImpl(Node root){
+            Deque<Node> stack = new ArrayDeque<>();
+            stack.add(root);
+
+            while(!stack.isEmpty()){
+                Node node = stack.pop();
+                if (node.getDepth() == depth) {
+                    continue;
+                }
+
+                List<Node> children = new ArrayList<>();
+                for (Direction direction : orientation) {
+                    PuzzleState childPuzzleState = node.getPuzzleState().move(direction);
+                    if (childPuzzleState != null) {
+                        node.addChild(new Node(node, childPuzzleState, node.getDepth() + 1));
+                        graph.nodeCount++;
+                    }
+                }
+                for (Node child : node.getChildren()) {
+                    stack.push(child);
+                }
             }
         }
     }

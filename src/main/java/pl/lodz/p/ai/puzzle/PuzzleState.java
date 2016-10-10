@@ -1,7 +1,6 @@
 package pl.lodz.p.ai.puzzle;
 
 import pl.lodz.p.ai.array.Array2D;
-import pl.lodz.p.ai.array.InvalidPositionException;
 import pl.lodz.p.ai.array.Position;
 import pl.lodz.p.ai.utility.array.ArrayUtils;
 
@@ -48,9 +47,7 @@ public class PuzzleState {
                 newZeroPosition = zeroPosition.translatePosition(1, 0);
                 break;
         }
-        try {
-            newState.swap(zeroPosition, newZeroPosition);
-        } catch (InvalidPositionException e) {
+        if (!newState.swap(zeroPosition, newZeroPosition)) {
             return null;
         }
         newPuzzleState = new PuzzleStateBuilder(newState)

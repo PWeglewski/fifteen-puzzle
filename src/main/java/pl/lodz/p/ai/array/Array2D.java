@@ -78,13 +78,14 @@ public class Array2D {
         return Arrays.equals(((Array2D) obj).getSourceArray(), sourceArray);
     }
 
-    public void swap(Position p1, Position p2) throws InvalidPositionException {
+    public boolean swap(Position p1, Position p2){
         if (!(isPositionValid(p1) && isPositionValid(p2))) {
-            throw new InvalidPositionException();
+            return false;
         }
         int temp = getValue(p1);
         setValue(p1, getValue(p2));
         setValue(p2, temp);
+        return true;
     }
 
     private boolean isIndexValid(int index) {
