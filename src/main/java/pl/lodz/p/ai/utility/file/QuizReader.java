@@ -4,6 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import pl.lodz.p.ai.FifteenPuzzleApp;
+import pl.lodz.p.ai.array.Array2D;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,8 +17,8 @@ public class QuizReader {
     private static final String ENCODING = "UTF-8";
     static Logger log = Logger.getLogger(QuizReader.class.getName());
 
-    public static int[][] read(String fileName) {
-        int[][] resultArray = null;
+    public static Array2D read(String fileName) {
+        Array2D resultArray = null;
 
         InputStream resourceAsStream = FifteenPuzzleApp.class.getClassLoader().getResourceAsStream(fileName);
 
@@ -31,11 +32,11 @@ public class QuizReader {
             JSONObject jsonObject = new JSONObject(JsonString);
             JSONArray rows = jsonObject.getJSONArray("board");
             int resultArraySize = rows.length();
-            resultArray = new int[resultArraySize][resultArraySize];
+            resultArray = new Array2D(resultArraySize);
             for (int rowIndex = 0; rowIndex < rows.length(); rowIndex++) {
                 JSONArray row = (JSONArray) rows.get(rowIndex);
                 for (int columnIndex = 0; columnIndex < row.length(); columnIndex++) {
-                    resultArray[rowIndex][columnIndex] = (int) row.get(columnIndex);
+                    resultArray.setValue(columnIndex, rowIndex, (int) row.get(columnIndex));
                 }
             }
 
@@ -45,4 +46,6 @@ public class QuizReader {
 
         return resultArray;
     }
+
+
 }

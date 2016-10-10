@@ -1,10 +1,8 @@
-package pl.lodz.p.ai.model;
+package pl.lodz.p.ai.graph;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
-
-import pl.lodz.p.ai.utility.file.QuizReader;
 
 public class GraphNodeTest {
 
@@ -12,7 +10,8 @@ public class GraphNodeTest {
 	public void test() {
 		//dodam jakies lepsze testy, tutaj na razie takie na szybko czy 
 		//dziala to co chcialem sprawdzic
-		GraphNode node = new GraphNode(null, QuizReader.read("testSample.json"),0);
+//		TODO Node node = new Node(null, QuizReader.read("testSample.json"),0);
+		Node node = null;
 		node.setParent(node);
 		node.addChild(node);
 		node.addChild(node);

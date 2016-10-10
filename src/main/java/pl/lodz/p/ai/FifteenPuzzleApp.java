@@ -1,6 +1,8 @@
 package pl.lodz.p.ai;
 
-import pl.lodz.p.ai.model.GraphNode;
+import pl.lodz.p.ai.array.Array2D;
+import pl.lodz.p.ai.graph.Graph;
+import pl.lodz.p.ai.puzzle.PuzzleState;
 import pl.lodz.p.ai.utility.file.QuizReader;
 
 /**
@@ -9,6 +11,13 @@ import pl.lodz.p.ai.utility.file.QuizReader;
 public class FifteenPuzzleApp {
     public static void main(String[] args) {
         System.out.println("Hello World!");
-        //GraphNode a = new GraphNode(QuizReader.read("testSample"));
+
+        Array2D array2D = QuizReader.read("sample.json");
+
+        PuzzleState puzzleStateJanusz = new PuzzleState.PuzzleStateBuilder(array2D).build();
+
+        Graph grafJanusz = new Graph.GraphBuilder(puzzleStateJanusz).depth(17).build();
+
+        System.out.println("porobione");
     }
 }
