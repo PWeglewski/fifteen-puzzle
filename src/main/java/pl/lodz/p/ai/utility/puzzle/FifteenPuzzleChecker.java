@@ -14,11 +14,7 @@ public class FifteenPuzzleChecker {
 
 	public static boolean isSoultion(Node node)
 	{
-		if(node.getPuzzleState().equals(solution))
-		{
-			return true;
-		}
-		return false;
+		return node.getPuzzleState().getState().equals(solution);
 	}
 	
 	//flag 0 to pusty idzie w gore
