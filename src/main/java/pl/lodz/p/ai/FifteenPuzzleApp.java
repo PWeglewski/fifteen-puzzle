@@ -6,6 +6,7 @@ import pl.lodz.p.ai.graph.Node;
 import pl.lodz.p.ai.puzzle.PuzzleState;
 import pl.lodz.p.ai.search.BFSSearch;
 import pl.lodz.p.ai.search.DFSSearch;
+import pl.lodz.p.ai.search.ISearch;
 import pl.lodz.p.ai.utility.file.QuizReader;
 
 /**
@@ -21,13 +22,22 @@ public class FifteenPuzzleApp {
 
         Graph grafJanusz = new Graph.GraphBuilder(puzzleStateJanusz).depth(13).build();
         
-        DFSSearch dfs = new DFSSearch(grafJanusz);
-        
-        Node node = dfs.SearchSolution();
+        ISearch searchAlg = new DFSSearch(grafJanusz);
+        Node node = searchAlg.SearchSolution();
         
         if(node!= null)
         {
         	System.out.println("EKSTRA");
+        	System.out.println(node.getDepth());
+        	System.out.println(node.getPuzzleState().toString());
+        }
+        
+        searchAlg = new BFSSearch(grafJanusz);
+        node = searchAlg.SearchSolution();
+        
+        if(node!= null)
+        {
+        	System.out.println("EKSTRA2");
         	System.out.println(node.getDepth());
         	System.out.println(node.getPuzzleState().toString());
         }

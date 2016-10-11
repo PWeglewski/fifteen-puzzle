@@ -4,7 +4,7 @@ import pl.lodz.p.ai.graph.Graph;
 import pl.lodz.p.ai.graph.Node;
 import pl.lodz.p.ai.utility.puzzle.FifteenPuzzleChecker;
 
-public class DFSSearch {
+public class DFSSearch implements ISearch{
 	private Graph graph;
 	private Node solution = null;
 	
