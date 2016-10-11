@@ -66,6 +66,17 @@ public class PuzzleState {
         else return false;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        int[] stateArray = state.getSourceArray();
+        for (int i = 0; i < stateArray.length; i++) {
+            stringBuilder.append(stateArray[i])
+                    .append(":");
+        }
+        return stringBuilder.toString();
+    }
+
     public static class PuzzleStateBuilder {
         Array2D sourceArray;
         Position zeroPosition;

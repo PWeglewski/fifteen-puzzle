@@ -18,7 +18,7 @@ public class FifteenPuzzleApp {
 
         PuzzleState puzzleStateJanusz = new PuzzleState.PuzzleStateBuilder(array2D).build();
 
-        Graph grafJanusz = new Graph.GraphBuilder(puzzleStateJanusz).depth(13).build();
+        Graph grafJanusz = new Graph.GraphBuilder(puzzleStateJanusz).depth(25).build();
         
         BFSSearch bfs = new BFSSearch(grafJanusz);
         
