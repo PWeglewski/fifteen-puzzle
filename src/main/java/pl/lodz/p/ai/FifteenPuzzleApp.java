@@ -28,7 +28,7 @@ public class FifteenPuzzleApp {
         {
         	System.out.println("EKSTRA");
         	System.out.println(node.getDepth());
-        	System.out.println(node.getPuzzleState().getState().toString());
+        	System.out.println(node.getPuzzleState().toString());
         }
 
         System.out.println("porobione");
