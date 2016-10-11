@@ -29,6 +29,13 @@ public class BFSSearch {
 		{
 			for (Node a : node.getChildren())
 			{
+				if(FifteenPuzzleChecker.isSoultion(a))
+				{
+					return a;
+				}
+			}
+			for (Node a : node.getChildren())
+			{
 				return Search(a);
 			}
 		}
