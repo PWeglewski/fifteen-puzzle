@@ -4,13 +4,13 @@ import pl.lodz.p.ai.puzzle.Direction;
 import pl.lodz.p.ai.puzzle.PuzzleState;
 
 import java.util.*;
-import java.util.logging.Logger;
 
 public class Graph {
-//    static Logger log = Logger.getLogger(Graph.class.getName());
+    //    static Logger log = Logger.getLogger(Graph.class.getName());
     private Node root;
     private int graphDepth = 0;
     private int nodeCount = 0;
+    private Map<String, String> knownStates = new HashMap<>();
 
     private Graph(Node root) {
         this.root = root;
@@ -24,40 +24,6 @@ public class Graph {
     public void setRoot(Node root) {
         this.root = root;
     }
-
-//    public void createGraph(int graphDepth) {
-//        this.graphDepth = graphDepth;
-//        addNodesToGraph(root);
-//    }
-
-//    private void addNodesToGraph(Node node) {
-//        if (node.getDepth() == graphDepth) {
-//            return;
-//        }
-//        //TODO jesli mozna przesunac, metodke dodac co sprawdza, utilowa
-//        //i metodke co zamienia, w sumie to chyba ta sama
-//        if (FifteenPuzzleChecker.createNextState(node.getPuzzleState(), 0) != null) {
-//            nodeCount++;
-//            node.addChild(new Node(node, FifteenPuzzleChecker.createNextState(node.getPuzzleState(), 0), node.getDepth() + 1));
-//        }
-//        if (FifteenPuzzleChecker.createNextState(node.getPuzzleState(), 1) != null) {
-//            nodeCount++;
-//            node.addChild(new Node(node, FifteenPuzzleChecker.createNextState(node.getPuzzleState(), 1), node.getDepth() + 1));
-//        }
-//        if (FifteenPuzzleChecker.createNextState(node.getPuzzleState(), 2) != null) {
-//            nodeCount++;
-//            node.addChild(new Node(node, FifteenPuzzleChecker.createNextState(node.getPuzzleState(), 2), node.getDepth() + 1));
-//        }
-//        if (FifteenPuzzleChecker.createNextState(node.getPuzzleState(), 3) != null) {
-//            nodeCount++;
-//            node.addChild(new Node(node, FifteenPuzzleChecker.createNextState(node.getPuzzleState(), 3), node.getDepth() + 1));
-//        }
-//        //log.info("count" + nodeCount);
-//
-//        for (Node child : node.getChildren()) {
-//            this.addNodesToGraph(child);
-//        }
-//    }
 
     public static class GraphBuilder {
         Graph graph = null;
@@ -104,11 +70,13 @@ public class Graph {
             }
         }
 
-        private void createChildrenStackImpl(Node root){
+        private void createChildrenStackImpl(Node root) {
             Deque<Node> stack = new ArrayDeque<>();
             stack.add(root);
 
-            while(!stack.isEmpty()){
+            graph.knownStates.put(root.getPuzzleState().toString(), "");
+
+            while (!stack.isEmpty()) {
                 Node node = stack.pop();
                 if (node.getDepth() == depth) {
                     continue;
@@ -117,9 +85,10 @@ public class Graph {
                 List<Node> children = new ArrayList<>();
                 for (Direction direction : orientation) {
                     PuzzleState childPuzzleState = node.getPuzzleState().move(direction);
-                    if (childPuzzleState != null) {
+                    if (childPuzzleState != null && (!graph.knownStates.containsKey(childPuzzleState.toString()))) {
                         node.addChild(new Node(node, childPuzzleState, node.getDepth() + 1));
                         graph.nodeCount++;
+                        graph.knownStates.put(childPuzzleState.toString(), "");
                     }
                 }
                 for (Node child : node.getChildren()) {
