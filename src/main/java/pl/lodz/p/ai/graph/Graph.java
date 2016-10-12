@@ -7,12 +7,12 @@ import java.util.*;
 
 public class Graph {
     //    static Logger log = Logger.getLogger(Graph.class.getName());
-    private Node root;
-    private int graphDepth = 0;
-    private int nodeCount = 0;
-    private Map<String, String> knownStates = new HashMap<>();
+    protected Node root;
+    protected int graphDepth = 0;
+    protected int nodeCount = 0;
+    protected Map<String, String> knownStates = new HashMap<>();
 
-    private Graph(Node root) {
+    protected Graph(Node root) {
         this.root = root;
         nodeCount = 1;
     }

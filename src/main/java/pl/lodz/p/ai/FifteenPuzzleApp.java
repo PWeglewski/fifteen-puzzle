@@ -1,6 +1,7 @@
 package pl.lodz.p.ai;
 
 import pl.lodz.p.ai.array.Array2D;
+import pl.lodz.p.ai.graph.DFSGraphBuilderAndSolver;
 import pl.lodz.p.ai.graph.Graph;
 import pl.lodz.p.ai.graph.Node;
 import pl.lodz.p.ai.puzzle.PuzzleState;
@@ -42,6 +43,15 @@ public class FifteenPuzzleApp {
         	System.out.println(node.getPuzzleState().toString());
         }
 
+        
+        Node dfsSolution = new DFSGraphBuilderAndSolver.GraphBuilderAndSolver(puzzleStateJanusz).depth(13).buildAndSolve();
+        if(dfsSolution != null)
+        {
+        	System.out.println("EKSTRA3");
+        	System.out.println(dfsSolution.getDepth());
+        	System.out.println(dfsSolution.getPuzzleState().toString());   	
+        }
+        
         System.out.println("porobione");
     }
 }
