@@ -6,14 +6,14 @@ import java.util.Arrays;
 import java.util.Deque;
 import java.util.List;
 
-import pl.lodz.p.ai.graph.Graph.GraphBuilder;
+import pl.lodz.p.ai.graph.DFSGraphBuilderAndSolver.GraphBuilderAndSolver;
 import pl.lodz.p.ai.puzzle.Direction;
 import pl.lodz.p.ai.puzzle.PuzzleState;
 import pl.lodz.p.ai.utility.puzzle.FifteenPuzzleChecker;
 
-public class DFSGraphBuilderAndSolver extends Graph {
-	
-	public DFSGraphBuilderAndSolver(Node root)
+public class BFSGraphBuilderAndSolver extends Graph {
+
+	public BFSGraphBuilderAndSolver(Node root)
 	{
 		super(root);
 		
@@ -65,6 +65,7 @@ public class DFSGraphBuilderAndSolver extends Graph {
 	            }
 	        }
 
+	        //change to BFS
 	        private Node createChildrenAndSolveStackImpl(Node root) {
 	            Deque<Node> stack = new ArrayDeque<>();
 	            stack.add(root);
