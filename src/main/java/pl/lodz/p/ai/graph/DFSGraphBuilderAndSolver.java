@@ -73,6 +73,7 @@ public class DFSGraphBuilderAndSolver extends Graph {
 
 	            while (!stack.isEmpty()) {
 	                Node node = stack.pop();
+	                //System.out.println("DFS depth:" + node.getDepth());
 	                if(FifteenPuzzleChecker.isSoultion(node))
 	                {
 	                	return node;
@@ -90,6 +91,7 @@ public class DFSGraphBuilderAndSolver extends Graph {
 	                        graph.knownStates.put(childPuzzleState.toString(), "");
 	                    }
 	                }
+	                //Here we push so it is DFS
 	                for (Node child : node.getChildren()) {
 	                    stack.push(child);
 	                }

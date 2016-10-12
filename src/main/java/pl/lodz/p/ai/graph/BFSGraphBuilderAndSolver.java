@@ -74,6 +74,7 @@ public class BFSGraphBuilderAndSolver extends Graph {
 
 	            while (!stack.isEmpty()) {
 	                Node node = stack.pop();
+	                //System.out.println("BFS depth:" + node.getDepth());
 	                if(FifteenPuzzleChecker.isSoultion(node))
 	                {
 	                	return node;
@@ -91,8 +92,9 @@ public class BFSGraphBuilderAndSolver extends Graph {
 	                        graph.knownStates.put(childPuzzleState.toString(), "");
 	                    }
 	                }
+	                //here we have to add at the end so it is BFS not DFS
 	                for (Node child : node.getChildren()) {
-	                    stack.push(child);
+	                    stack.add(child);
 	                }
 	            }
 	            return null;
