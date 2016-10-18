@@ -27,6 +27,11 @@ public class PuzzleState {
     public Position getZeroPosition() {
         return zeroPosition;
     }
+    
+    public void setLastMoveToNull()
+    {
+    	lastMove= null;
+    }
 
     public PuzzleState move(Direction direction) {
         if (checkLastMove(lastMove, direction)) return null;

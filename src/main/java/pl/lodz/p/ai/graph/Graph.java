@@ -78,6 +78,13 @@ public class Graph {
 
             while (!stack.isEmpty()) {
                 Node node = stack.pop();
+                //System.out.println("DEPTH:" + node.getDepth());
+//                try {
+//					Thread.sleep(500);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
                 if (node.getDepth() == depth) {
                     continue;
                 }
@@ -92,7 +99,7 @@ public class Graph {
                     }
                 }
                 for (Node child : node.getChildren()) {
-                    stack.push(child);
+                    stack.add(child);
                 }
             }
         }
