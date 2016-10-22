@@ -6,17 +6,15 @@ import java.util.Arrays;
 import java.util.Deque;
 import java.util.List;
 
-import pl.lodz.p.ai.graph.DFSGraphBuilderAndSolver.GraphBuilderAndSolver;
+import pl.lodz.p.ai.graph.BFSGraphBuilderAndSolver.GraphBuilderAndSolver;
 import pl.lodz.p.ai.puzzle.Direction;
 import pl.lodz.p.ai.puzzle.PuzzleState;
 import pl.lodz.p.ai.utility.puzzle.FifteenPuzzleChecker;
 
-public class BFSGraphBuilderAndSolver extends Graph {
+public class BestFirstSearchAlgorithm extends Graph {
 
-	public BFSGraphBuilderAndSolver(Node root)
-	{
+	public BestFirstSearchAlgorithm(Node root) {
 		super(root);
-		
 	}
 	
 	 public static class GraphBuilderAndSolver {
@@ -101,5 +99,4 @@ public class BFSGraphBuilderAndSolver extends Graph {
 	            return null;
 	        }
 	    }
-	 
 }

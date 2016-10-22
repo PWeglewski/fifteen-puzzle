@@ -10,6 +10,7 @@ public class Node {
     private PuzzleState puzzleState;
     private Node parent;
     private int depth;
+    private int helperValue;
     private ArrayList<Node> children = new ArrayList<Node>();
 
     /**
@@ -60,5 +61,13 @@ public class Node {
 
     public int getDepth() {
         return depth;
+    }
+    
+    public int getValue(){
+    	return helperValue;
+    }
+    
+    public void setValue(int value){
+    	this.helperValue = value;
     }
 }
