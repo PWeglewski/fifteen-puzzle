@@ -18,6 +18,11 @@ public class BestFirstSearchAlgorithm extends Graph {
 	}
 	
 	 public static class GraphBuilderAndSolver {
+			private static int[][] twoDimSolution ={{1, 2, 3, 4},
+					  {5, 6, 7, 8},
+					  {9, 10, 11, 12},
+					  {13, 14, 15, 0}};
+
 	        Graph graph = null;
 	        Node root;
 	        int depth = 1;
@@ -26,6 +31,39 @@ public class BestFirstSearchAlgorithm extends Graph {
 
 	        public GraphBuilderAndSolver(PuzzleState rootPuzzleState) {
 	            this.root = new Node(null, rootPuzzleState, 0);
+	        }
+	        
+	        //three types of heurustics, 1,2,3
+	        public void calculateHeuristicsForNode(Node node, int type)
+	        {
+	        	switch(type)
+	        	{
+	        		case 0:
+	        			this.calculateHeuristicsMisplacedTiles(node);
+	        			break;
+	        		case 1:
+	        			this.calculateHeuristicsManhattanDistance(node);
+	        			break;
+	        		case 2:
+	        			this.calculateHeuristicsEuclideanDistance(node);
+	        			break;
+	        	}
+	        }
+	        
+	        private void calculateHeuristicsMisplacedTiles(Node node)
+	        {
+	        	
+	        }
+	        
+	        private void calculateHeuristicsManhattanDistance(Node node)
+	        {
+	        	
+	        }
+	        
+	        
+	        private void calculateHeuristicsEuclideanDistance(Node node)
+	        {
+	        	
 	        }
 
 	        public GraphBuilderAndSolver counterClockwise() {
@@ -63,17 +101,18 @@ public class BestFirstSearchAlgorithm extends Graph {
 	            }
 	        }
 
-	        //change to BFS
 	        private Node createChildrenAndSolveStackImpl(Node root) {
 	            Deque<Node> stack = new ArrayDeque<>();
+	            this.calculateHeuristicsForNode(root, 0);
 	            stack.add(root);
 
 	            graph.knownStates.put(root.getPuzzleState().toString(), "");
 
 	            while (!stack.isEmpty()) {
+	            	//inaczej wyciągać, po H
 	                Node node = stack.pop();
-	                //System.out.println("BFS depth:" + node.getDepth());
-	                //System.out.println(node.getPuzzleState().toString());
+	                
+	                //to mozna sprawdzać po h, jak zero to rozwiazanie
 	                if(FifteenPuzzleChecker.isSoultion(node))
 	                {
 	                	return node;
@@ -85,8 +124,11 @@ public class BestFirstSearchAlgorithm extends Graph {
 	                List<Node> children = new ArrayList<>();
 	                for (Direction direction : orientation) {
 	                    PuzzleState childPuzzleState = node.getPuzzleState().move(direction);
+	                    //na razie hardodowane, mozna zmienic
 	                    if (childPuzzleState != null && (!graph.knownStates.containsKey(childPuzzleState.toString()))) {
-	                        node.addChild(new Node(node, childPuzzleState, node.getDepth() + 1));
+	                        Node childNode = new Node(node, childPuzzleState, node.getDepth() + 1);
+	                        this.calculateHeuristicsForNode(childNode, 0);
+	                    	node.addChild(childNode);
 	                        graph.nodeCount++;
 	                        graph.knownStates.put(childPuzzleState.toString(), "");
 	                    }
