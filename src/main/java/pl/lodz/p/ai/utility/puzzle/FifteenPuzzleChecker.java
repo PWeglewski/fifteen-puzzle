@@ -1,21 +1,20 @@
 package pl.lodz.p.ai.utility.puzzle;
 
-import pl.lodz.p.ai.model.GraphNode;
+import pl.lodz.p.ai.array.Array2D;
+import pl.lodz.p.ai.graph.Node;
 import pl.lodz.p.ai.utility.array.ArrayUtils;
 
 public class FifteenPuzzleChecker {
-	private static int[][] solution ={{1, 2, 3, 4},
+	private static int[][] twoDimSolution ={{1, 2, 3, 4},
 									  {5, 6, 7, 8},
 									  {9, 10, 11, 12},
 									  {13, 14, 15, 0}};
-	
-	public static boolean isSoultion(GraphNode node)
+
+	private static Array2D solution = new Array2D(twoDimSolution);
+
+	public static boolean isSoultion(Node node)
 	{
-		if(java.util.Arrays.deepEquals(node.getPuzzleState(),solution))
-		{
-			return true;
-		}
-		return false;
+		return node.getPuzzleState().getState().equals(solution);
 	}
 	
 	//flag 0 to pusty idzie w gore
