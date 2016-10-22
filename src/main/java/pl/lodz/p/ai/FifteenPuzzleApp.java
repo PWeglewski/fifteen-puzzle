@@ -2,6 +2,7 @@ package pl.lodz.p.ai;
 
 import pl.lodz.p.ai.array.Array2D;
 import pl.lodz.p.ai.graph.BFSGraphBuilderAndSolver;
+import pl.lodz.p.ai.graph.BestFirstSearchAlgorithm;
 import pl.lodz.p.ai.graph.DFSGraphBuilderAndSolver;
 import pl.lodz.p.ai.graph.Graph;
 import pl.lodz.p.ai.graph.Node;
@@ -38,7 +39,7 @@ public class FifteenPuzzleApp {
       puzzleState.setLastMoveToNull();
       System.out.println("Random state:");
       System.out.println(puzzleState.toString());
-      
+   /*   
       //create graph(using BFS strategy) used by DFS and BFS alghorithms
       Graph grafJanusz = new Graph.GraphBuilder(puzzleState).depth(17).build();
       
@@ -71,6 +72,7 @@ public class FifteenPuzzleApp {
         	System.out.println(dfsSolution.getPuzzleState().toString());   	
         }
         
+        */
         Node bfsSolution = new BFSGraphBuilderAndSolver.GraphBuilderAndSolver(puzzleState).depth(17).buildAndSolve();
         if(bfsSolution != null)
         {
@@ -80,7 +82,15 @@ public class FifteenPuzzleApp {
         }
         
         System.out.println("done");
-        
+     
+      
+      Node bestSolution = new BestFirstSearchAlgorithm.GraphBuilderAndSolver(puzzleState).depth(17).buildAndSolve();
+      if(bestSolution != null)
+      {
+      	System.out.println("Best First Search:");
+      	System.out.println(bestSolution.getDepth());
+      	System.out.println(bestSolution.getPuzzleState().toString());   	
+      }
         
         
         //BFS zoptymalizowany - jest podczas budowy szuka od razu - lepiej sie hcyba nie

@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Deque;
 import java.util.List;
 
+import pl.lodz.p.ai.array.Position;
 import pl.lodz.p.ai.graph.BFSGraphBuilderAndSolver.GraphBuilderAndSolver;
 import pl.lodz.p.ai.puzzle.Direction;
 import pl.lodz.p.ai.puzzle.PuzzleState;
@@ -52,7 +53,20 @@ public class BestFirstSearchAlgorithm extends Graph {
 	        
 	        private void calculateHeuristicsMisplacedTiles(Node node)
 	        {
+	        	int diff = 0;
+	        	for(int i = 0; i < 4; i++)
+	        	{
+	        		for(int j=0; j<4;j++)
+	        		{
+	        			if(twoDimSolution[i][j] != node.getPuzzleState().getState().getValue(new Position(j, i)))
+	        			{
+	        				diff++;
+	        			}
+	        		}
+	        		
+	        	}
 	        	
+	        	node.setValue(diff);
 	        }
 	        
 	        private void calculateHeuristicsManhattanDistance(Node node)
@@ -83,37 +97,34 @@ public class BestFirstSearchAlgorithm extends Graph {
 	            return solution;
 	        }
 
-	        private void createChildren(Node node) {
-	            if (node.getDepth() == depth) {
-	                return;
-	            }
-
-	            List<Node> children = new ArrayList<>();
-	            for (Direction direction : orientation) {
-	                PuzzleState childPuzzleState = node.getPuzzleState().move(direction);
-	                if (childPuzzleState != null) {
-	                    node.addChild(new Node(node, childPuzzleState, node.getDepth() + 1));
-	                    graph.nodeCount++;
-	                }
-	            }
-	            for (Node child : node.getChildren()) {
-	                createChildren(child);
-	            }
-	        }
-
 	        private Node createChildrenAndSolveStackImpl(Node root) {
 	            Deque<Node> stack = new ArrayDeque<>();
 	            this.calculateHeuristicsForNode(root, 0);
 	            stack.add(root);
 
 	            graph.knownStates.put(root.getPuzzleState().toString(), "");
+	            
+	            int min = 0;
+	            Node bestNode = null;
 
 	            while (!stack.isEmpty()) {
 	            	//inaczej wyciągać, po H
-	                Node node = stack.pop();
+	            	min = 0;
+	            	for(Node nod: stack)
+	            	{
+	            		if(min == 0 || nod.getValue() < min)
+	            		{
+	            			min = nod.getValue();
+	            			bestNode = nod;
+	            		}
+	            	}
+	            	
+
+        			stack.remove(bestNode);
+	                Node node = bestNode;
 	                
 	                //to mozna sprawdzać po h, jak zero to rozwiazanie
-	                if(FifteenPuzzleChecker.isSoultion(node))
+	                if(node.getValue() == 0)
 	                {
 	                	return node;
 	                }	                	
