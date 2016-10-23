@@ -81,6 +81,20 @@ public class PuzzleState {
         }
         return stringBuilder.toString();
     }
+    
+    public String displayAsArray(){
+        StringBuilder stringBuilder = new StringBuilder();
+        int[] stateArray = state.getSourceArray();
+        for (int i = 0; i < stateArray.length; i++) {
+            stringBuilder.append(stateArray[i])
+                    .append(" ");
+            if((i+1)%4 == 0)
+            {
+            	stringBuilder.append("\n");
+            }
+        }
+        return stringBuilder.toString();
+    }
 
     public static class PuzzleStateBuilder {
         Array2D sourceArray;

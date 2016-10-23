@@ -28,6 +28,18 @@ import pl.lodz.p.ai.utility.puzzle.FifteenPuzzleStateGenerator;
  * SMA*:
  */
 public class FifteenPuzzleApp {
+	public static void displayPath(Node node)
+	{
+		System.out.println("Solution path");
+		Node nod = node;
+		System.out.println(nod.getPuzzleState().displayAsArray());
+		while(nod.getParent() != null)
+		{
+			nod = nod.getParent();
+			System.out.println(nod.getPuzzleState().displayAsArray());
+		}
+	}
+	
     public static void main(String[] args) {
 	
       //read json file - which is solution
@@ -91,7 +103,7 @@ public class FifteenPuzzleApp {
       	System.out.println(bestSolution.getDepth());
       	System.out.println(bestSolution.getPuzzleState().toString());   	
       }
-        
+      displayPath(bestSolution);        
         
         //BFS zoptymalizowany - jest podczas budowy szuka od razu - lepiej sie hcyba nie
         //da, zawsze znajdzie najszybsze rozwiazanie
