@@ -71,13 +71,63 @@ public class BestFirstSearchAlgorithm extends Graph {
 	        
 	        private void calculateHeuristicsManhattanDistance(Node node)
 	        {
-	        	
+	        	int diff = 0;
+	        	int val;
+	        	int properR;
+	        	int properC;
+	        	for(int i = 0; i < 4; i++)
+	        	{
+	        		for(int j = 0; j < 4; j++)
+	        		{
+	        			if(twoDimSolution[i][j] != node.getPuzzleState().getState().getValue(new Position(j, i)))
+	        			{
+	        				val = node.getPuzzleState().getState().getValue(new Position(j, i));
+	        				if(val!= 0)
+	        				{
+		        				properR = (val-1) / 4;
+		        				properC = (val-1) % 4;	        					
+	        				}
+	        				else
+	        				{
+	        					properR = 3;
+	        					properC = 3;
+	        				}
+	        				diff += Math.abs(i-properR) + Math.abs(j-properC);
+	        			}
+	        		}
+	        	}
+	        	node.setValue(diff);
 	        }
 	        
 	        
 	        private void calculateHeuristicsEuclideanDistance(Node node)
 	        {
-	        	
+	           	int diff = 0;
+	        	int val;
+	        	int properR;
+	        	int properC;
+	        	for(int i = 0; i < 4; i++)
+	        	{
+	        		for(int j = 0; j < 4; j++)
+	        		{
+	        			if(twoDimSolution[i][j] != node.getPuzzleState().getState().getValue(new Position(j, i)))
+	        			{
+	        				val = node.getPuzzleState().getState().getValue(new Position(j, i));
+	        				if(val!= 0)
+	        				{
+		        				properR = (val-1) / 4;
+		        				properC = (val-1) % 4;	        					
+	        				}
+	        				else
+	        				{
+	        					properR = 3;
+	        					properC = 3;
+	        				}
+	        				diff += Math.sqrt((i-properR)*(i-properR) + (j-properC)*(j-properC));
+	        			}
+	        		}
+	        	}
+	        	node.setValue(diff);	
 	        }
 
 	        public GraphBuilderAndSolver counterClockwise() {
@@ -90,16 +140,17 @@ public class BestFirstSearchAlgorithm extends Graph {
 	            return this;
 	        }
 
-	        public Node buildAndSolve() {
+	        public Node buildAndSolve(int heuristic) {
 	            graph = new Graph(root);
 	            Node solution = null;
-	            solution = createChildrenAndSolveStackImpl(root);
+	            solution = createChildrenAndSolveStackImpl(root, heuristic);
 	            return solution;
 	        }
 
-	        private Node createChildrenAndSolveStackImpl(Node root) {
+	        private Node createChildrenAndSolveStackImpl(Node root, int heur) {
 	            Deque<Node> stack = new ArrayDeque<>();
-	            this.calculateHeuristicsForNode(root, 0);
+	            int heuristic = heur;
+	            this.calculateHeuristicsForNode(root, heuristic);
 	            stack.add(root);
 
 	            graph.knownStates.put(root.getPuzzleState().toString(), "");
@@ -138,7 +189,7 @@ public class BestFirstSearchAlgorithm extends Graph {
 	                    //na razie hardodowane, mozna zmienic
 	                    if (childPuzzleState != null && (!graph.knownStates.containsKey(childPuzzleState.toString()))) {
 	                        Node childNode = new Node(node, childPuzzleState, node.getDepth() + 1);
-	                        this.calculateHeuristicsForNode(childNode, 0);
+	                        this.calculateHeuristicsForNode(childNode, heuristic);
 	                    	node.addChild(childNode);
 	                        graph.nodeCount++;
 	                        graph.knownStates.put(childPuzzleState.toString(), "");

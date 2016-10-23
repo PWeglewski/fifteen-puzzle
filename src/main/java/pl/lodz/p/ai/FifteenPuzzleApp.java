@@ -84,7 +84,7 @@ public class FifteenPuzzleApp {
         System.out.println("done");
      
       
-      Node bestSolution = new BestFirstSearchAlgorithm.GraphBuilderAndSolver(puzzleState).depth(17).buildAndSolve();
+      Node bestSolution = new BestFirstSearchAlgorithm.GraphBuilderAndSolver(puzzleState).depth(17).buildAndSolve(1);
       if(bestSolution != null)
       {
       	System.out.println("Best First Search:");
