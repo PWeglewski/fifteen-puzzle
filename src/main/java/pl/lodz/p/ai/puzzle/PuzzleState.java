@@ -86,8 +86,15 @@ public class PuzzleState {
         StringBuilder stringBuilder = new StringBuilder();
         int[] stateArray = state.getSourceArray();
         for (int i = 0; i < stateArray.length; i++) {
-            stringBuilder.append(stateArray[i])
-                    .append(" ");
+        	if(stateArray[i]<10)
+        	{
+                stringBuilder.append(stateArray[i]).append("  ");  		
+        	}
+        	else
+        	{
+        		stringBuilder.append(stateArray[i]).append(" "); 
+        	}
+
             if((i+1)%4 == 0)
             {
             	stringBuilder.append("\n");

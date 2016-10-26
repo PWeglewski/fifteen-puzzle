@@ -47,7 +47,7 @@ public class FifteenPuzzleApp {
 	  //create puzzle state - with solution
       PuzzleState puzzleStateJanusz = new PuzzleState.PuzzleStateBuilder(array2D).build();
 	  //generate random unsolved(probably) state
-      PuzzleState puzzleState = FifteenPuzzleStateGenerator.generateRandomState(puzzleStateJanusz, 17);
+      PuzzleState puzzleState = FifteenPuzzleStateGenerator.generateRandomState(puzzleStateJanusz, 20);
       puzzleState.setLastMoveToNull();
       System.out.println("Random state:");
       System.out.println(puzzleState.toString());
@@ -96,7 +96,7 @@ public class FifteenPuzzleApp {
         System.out.println("done");
      
       
-      Node bestSolution = new BestFirstSearchAlgorithm.GraphBuilderAndSolver(puzzleState).depth(17).buildAndSolve(1);
+      Node bestSolution = new BestFirstSearchAlgorithm.GraphBuilderAndSolver(puzzleState).depth(80).buildAndSolve(1);
       if(bestSolution != null)
       {
       	System.out.println("Best First Search:");
