@@ -39,6 +39,9 @@ public class ManhattanDistance {
         for (int x = 0; x < solution.getSize(); x++) {
             for (int y = 0; y < solution.getSize(); y++) {
                 int value = array.getValue(x, y);
+                if (value == 0) {
+                    continue;
+                }
                 Position solution = solutionTilesPositions.get(value);
                 result += Math.abs(x - solution.getX()) + Math.abs(y - solution.getY());
             }

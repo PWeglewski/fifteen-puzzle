@@ -29,10 +29,10 @@ public class ManhattanDistanceTest {
     @Test
     public void heuristicShouldBeCalculatedForGivenState() {
         int[][] stateArray = {
-                {2, 1, 3, 13},
+                {0, 2, 3, 13},
                 {5, 6, 7, 8},
                 {9, 10, 11, 12},
-                {4, 14, 15, 0}
+                {4, 14, 15, 1}
         };
 
         Array2D array2D = new Array2D(stateArray);
@@ -41,7 +41,7 @@ public class ManhattanDistanceTest {
 
         int actualValue = manhattanDistance.calculateValueForState(state);
 
-        int expectedValue = 14;
+        int expectedValue = 18;
 
         assertThat(actualValue).isEqualTo(expectedValue);
     }
