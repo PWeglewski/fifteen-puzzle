@@ -122,4 +122,9 @@ public class PuzzleState {
             return new PuzzleState(sourceArray, zeroPosition, lastMove);
         }
     }
+
+    @Override
+    public int hashCode() {
+        return state.hashCode();
+    }
 }

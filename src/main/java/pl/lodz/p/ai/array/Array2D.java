@@ -111,4 +111,9 @@ public class Array2D {
 
         return translateSourceArrayIndexToPosition(sourceArrayIndex);
     }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(sourceArray);
+    }
 }
