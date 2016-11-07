@@ -3,15 +3,18 @@ package pl.lodz.p.ai.graph;
 import pl.lodz.p.ai.puzzle.PuzzleState;
 
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
-public class Node {
-//    Logger log = Logger.getLogger(Node.class.getName());
+public class Node implements Comparable<Node> {
+    //    Logger log = Logger.getLogger(Node.class.getName());
     private PuzzleState puzzleState;
     private Node parent;
     private int depth;
     private int helperValue;
     private ArrayList<Node> children = new ArrayList<Node>();
+    /**
+     * Used only in A* algorithm
+     */
+    private int cost;
 
     /**
      * Constructor for graph root
@@ -29,6 +32,25 @@ public class Node {
         this.puzzleState = puzzleState;
         this.depth = depth;
         this.parent = parent;
+    }
+
+    public Node(Node parent, PuzzleState puzzleState, int depth, int cost) {
+        this.puzzleState = puzzleState;
+        this.depth = depth;
+        this.parent = parent;
+        this.cost = cost;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    public void increaseCost(int value) {
+        setCost(getCost() + value);
     }
 
     public Node getParent() {
@@ -62,12 +84,22 @@ public class Node {
     public int getDepth() {
         return depth;
     }
-    
-    public int getValue(){
-    	return helperValue;
+
+    public int getValue() {
+        return helperValue;
     }
-    
-    public void setValue(int value){
-    	this.helperValue = value;
+
+    public void setValue(int value) {
+        this.helperValue = value;
+    }
+
+    @Override
+    public int compareTo(Node o) {
+        return Integer.valueOf(this.getCost()).compareTo(o.getCost());
+    }
+
+    @Override
+    public int hashCode() {
+        return puzzleState.hashCode();
     }
 }

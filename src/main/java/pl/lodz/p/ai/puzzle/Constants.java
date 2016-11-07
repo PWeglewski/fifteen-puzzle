@@ -5,4 +5,5 @@ package pl.lodz.p.ai.puzzle;
  */
 public class Constants {
     public static final int EMPTY_FIELD = 0;
+    public static final String SOLUTION_JSON = "solution.json";
 }

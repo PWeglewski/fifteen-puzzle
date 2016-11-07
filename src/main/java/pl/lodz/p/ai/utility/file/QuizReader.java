@@ -5,6 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import pl.lodz.p.ai.FifteenPuzzleApp;
 import pl.lodz.p.ai.array.Array2D;
+import pl.lodz.p.ai.puzzle.Constants;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,5 +48,7 @@ public class QuizReader {
         return resultArray;
     }
 
-
+    public static Array2D getSolutionArray() {
+        return read(Constants.SOLUTION_JSON);
+    }
 }

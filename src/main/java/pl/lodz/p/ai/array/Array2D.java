@@ -78,7 +78,7 @@ public class Array2D {
         return Arrays.equals(((Array2D) obj).getSourceArray(), sourceArray);
     }
 
-    public boolean swap(Position p1, Position p2){
+    public boolean swap(Position p1, Position p2) {
         if (!(isPositionValid(p1) && isPositionValid(p2))) {
             return false;
         }
@@ -94,5 +94,26 @@ public class Array2D {
 
     private boolean isPositionValid(Position position) {
         return (isIndexValid(position.getX()) && isIndexValid(position.getY()));
+    }
+
+    private Position translateSourceArrayIndexToPosition(int index) {
+        return new Position(index % size, index / size);
+    }
+
+    public Position findValue(int givenValue) {
+        int sourceArrayIndex;
+
+        for (sourceArrayIndex = 0; sourceArrayIndex < sourceArray.length; sourceArrayIndex++) {
+            if (sourceArray[sourceArrayIndex] == givenValue) {
+                break;
+            }
+        }
+
+        return translateSourceArrayIndexToPosition(sourceArrayIndex);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(sourceArray);
     }
 }
