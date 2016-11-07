@@ -14,6 +14,8 @@ public class PuzzleState {
 
     Direction lastMove;
 
+    String toStringCachedValue = null;
+
     public PuzzleState(Array2D state, Position zeroPosition, Direction lastMove) {
         this.state = state;
         this.zeroPosition = zeroPosition;
@@ -27,10 +29,9 @@ public class PuzzleState {
     public Position getZeroPosition() {
         return zeroPosition;
     }
-    
-    public void setLastMoveToNull()
-    {
-    	lastMove= null;
+
+    public void setLastMoveToNull() {
+        lastMove = null;
     }
 
     public PuzzleState move(Direction direction) {
@@ -73,27 +74,34 @@ public class PuzzleState {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        int[] stateArray = state.getSourceArray();
-        for (int i = 0; i < stateArray.length; i++) {
-            stringBuilder.append(stateArray[i])
-                    .append(":");
+        if (toStringCachedValue == null) {
+            StringBuilder stringBuilder = new StringBuilder();
+            int[] stateArray = state.getSourceArray();
+            for (int i = 0; i < stateArray.length; i++) {
+                stringBuilder.append(stateArray[i])
+                        .append(":");
+            }
+            toStringCachedValue = stringBuilder.toString();
         }
-        return stringBuilder.toString();
+        return toStringCachedValue;
     }
-    
-    public String displayAsArray(){
+
+    public String displayAsArray() {
         StringBuilder stringBuilder = new StringBuilder();
         int[] stateArray = state.getSourceArray();
         for (int i = 0; i < stateArray.length; i++) {
             stringBuilder.append(stateArray[i])
                     .append(" ");
-            if((i+1)%4 == 0)
-            {
-            	stringBuilder.append("\n");
+            if ((i + 1) % 4 == 0) {
+                stringBuilder.append("\n");
             }
         }
         return stringBuilder.toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return state.hashCode();
     }
 
     public static class PuzzleStateBuilder {
@@ -121,10 +129,5 @@ public class PuzzleState {
             }
             return new PuzzleState(sourceArray, zeroPosition, lastMove);
         }
-    }
-
-    @Override
-    public int hashCode() {
-        return state.hashCode();
     }
 }

@@ -38,7 +38,7 @@ public class FifteenPuzzleApp {
         //#######################################################
         //##############    A* Test    ##########################
         //#######################################################
-        Array2D array2DAStar = QuizReader.read("sample48steps.json");
+        Array2D array2DAStar = QuizReader.read("sample80steps.json");
         //create puzzle state - with solution
         PuzzleState puzzleStateAStar = new PuzzleState.PuzzleStateBuilder(array2DAStar).build();
 //        PuzzleState puzzleStateShuffled = FifteenPuzzleStateGenerator.generateRandomState(puzzleStateAStar, 10);
