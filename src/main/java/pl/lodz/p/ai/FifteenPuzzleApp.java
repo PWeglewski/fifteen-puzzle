@@ -38,11 +38,9 @@ public class FifteenPuzzleApp {
         //#######################################################
         //##############    A* Test    ##########################
         //#######################################################
-        Array2D array2DAStar = QuizReader.read("sample80steps.json");
+        Array2D array2DAStar = QuizReader.read("sample35steps.json");
         //create puzzle state - with solution
         PuzzleState puzzleStateAStar = new PuzzleState.PuzzleStateBuilder(array2DAStar).build();
-//        PuzzleState puzzleStateShuffled = FifteenPuzzleStateGenerator.generateRandomState(puzzleStateAStar, 10);
-//        System.out.println("Random state to be solved: " + puzzleStateShuffled.toString());
 
         AStarSearchAlgorithm aStarSearchAlgorithm = new AStarSearchAlgorithm();
 
@@ -60,7 +58,34 @@ public class FifteenPuzzleApp {
         }
         //#######################################################
 
-        if (true) return;
+//        if (true) return;
+
+
+        //#######################################################
+        //##############    SMA* Test    ########################
+        //#######################################################
+        Array2D array2DSMAStar = QuizReader.read("sample35steps.json");
+        //create puzzle state - with solution
+        PuzzleState puzzleStateSMAStar = new PuzzleState.PuzzleStateBuilder(array2DSMAStar).build();
+
+        AStarSearchAlgorithm smaStarSearchAlgorithm = new AStarSearchAlgorithm(1000L);
+
+        long startTimeSMA = System.currentTimeMillis();
+        Node solutionSMAStar = smaStarSearchAlgorithm.search(puzzleStateSMAStar);
+        long stopTimeSMA = System.currentTimeMillis();
+        long elapsedTimeSMA = stopTimeSMA - startTimeSMA;
+
+        if (solutionSMAStar != null) {
+            System.out.println("Solution found");
+            System.out.println("Elapsed time: " + elapsedTimeSMA + "ms");
+            System.out.println("Steps: " + solutionSMAStar.getDepth());
+        } else {
+            System.out.println("Solution not found in the given memory!");
+        }
+        //#######################################################
+
+//        if (true) return;
+
 
         //read json file - which is solution
         Array2D array2D = QuizReader.read("solution.json");

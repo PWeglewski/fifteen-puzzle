@@ -15,15 +15,11 @@ public class OpenList {
     public void add(Node node) {
         priorityQueue.add(node);
         hashMap.put(node.getPuzzleState().toString(), node);
-        if(priorityQueue.size()!=hashMap.size()){
-            System.out.println("dupa");
-        }
     }
 
     public Node poll() {
         Node head = priorityQueue.poll();
         hashMap.remove(head.getPuzzleState().toString());
-//        checkSizes();
         return head;
     }
 
@@ -45,12 +41,16 @@ public class OpenList {
 
         priorityQueue.remove(oldNode);
         priorityQueue.add(newNode);
-        checkSizes();
     }
 
-    private void checkSizes(){
-        if(priorityQueue.size()!=hashMap.size()){
-            System.out.println("dupa");
-        }
+    public long size() {
+        return hashMap.size();
+    }
+
+    public Node removeLastElement() {
+        Node last = (Node) priorityQueue.toArray()[priorityQueue.size()-1];
+        priorityQueue.remove(last);
+        hashMap.remove(last.getPuzzleState().toString());
+        return last;
     }
 }

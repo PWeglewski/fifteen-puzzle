@@ -3,7 +3,6 @@ package pl.lodz.p.ai.graph;
 import pl.lodz.p.ai.heuristic.ManhattanDistance;
 import pl.lodz.p.ai.optimisation.ClosedList;
 import pl.lodz.p.ai.optimisation.OpenList;
-import pl.lodz.p.ai.optimisation.PuzzleStateRememberer;
 import pl.lodz.p.ai.puzzle.Direction;
 import pl.lodz.p.ai.puzzle.PuzzleState;
 import pl.lodz.p.ai.utility.puzzle.FifteenPuzzleChecker;
@@ -21,10 +20,19 @@ import java.util.List;
  */
 public class AStarSearchAlgorithm {
     public static final int G_SCORE = 1;
-
     List<Direction> orientation = Arrays.asList(Direction.UP, Direction.RIGHT, Direction.DOWN, Direction.LEFT);
-    PuzzleStateRememberer knownStates = new PuzzleStateRememberer();
     ManhattanDistance manhattanDistance = new ManhattanDistance();
+    private long memoryBound = Long.MAX_VALUE;
+    private int minCostOfRemovedElement = Integer.MAX_VALUE;
+    private boolean memoryBoundEnabled = false;
+
+    public AStarSearchAlgorithm(long memoryBound) {
+        this.memoryBound = memoryBound;
+        memoryBoundEnabled = true;
+    }
+
+    public AStarSearchAlgorithm() {
+    }
 
     public Node search(PuzzleState initialState) {
         // Open list is a priority queue, because it does not need to be sorted
@@ -33,7 +41,6 @@ public class AStarSearchAlgorithm {
 
         Node startNode = new Node(null, initialState, 0, 0);
         openList.add(startNode);
-        knownStates.addNewState(startNode.getPuzzleState());
 
         while (!openList.isEmpty()) {
             // Retrieves and removes the node with the best heuristic value from open list
@@ -44,6 +51,12 @@ public class AStarSearchAlgorithm {
 
             // Check if the current state is solution
             if (FifteenPuzzleChecker.isSoultion(currentNode)) {
+
+                // SMA implementation
+                if (minCostOfRemovedElement < currentNode.getCost()) {
+                    return null;
+                }
+
                 return currentNode;
             }
 
@@ -59,6 +72,7 @@ public class AStarSearchAlgorithm {
                     if (child.getCost() < openList.getNodeCost(child)) {
                         // then give the state on open shorter path
                         openList.replaceNode(child);
+                        continue;
                     } else {
                         continue;
                     }
@@ -70,14 +84,24 @@ public class AStarSearchAlgorithm {
                     if (child.getCost() < closedList.getNodeCost(child)) {
                         // then remove the state from closed list
                         closedList.remove(child);
-                        // and add new child to open list
-                        openList.add(child);
                     } else {
                         continue;
                     }
                 }
 
+                // and add new child to open list
                 openList.add(child);
+            }
+
+            // implementation of SMA*
+            if (memoryBoundEnabled) {
+                if (openList.size() > memoryBound) {
+                    Node lastElement = openList.removeLastElement();
+                    lastElement.getParent().getChildren().remove(lastElement);
+                    if (minCostOfRemovedElement > lastElement.getCost()) {
+                        minCostOfRemovedElement = lastElement.getCost();
+                    }
+                }
             }
         }
 
@@ -89,10 +113,8 @@ public class AStarSearchAlgorithm {
 
         for (Direction direction : orientation) {
             PuzzleState childPuzzleState = parent.getPuzzleState().move(direction);
-//            if (childPuzzleState != null && (!knownStates.isStateKnown(childPuzzleState))) {
             if (childPuzzleState != null) {
                 children.add(new Node(parent, childPuzzleState, parent.getDepth() + 1));
-//                knownStates.addNewState(childPuzzleState);
             }
         }
         return children;
