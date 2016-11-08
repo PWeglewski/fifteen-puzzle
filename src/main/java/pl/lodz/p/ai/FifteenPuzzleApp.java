@@ -92,10 +92,7 @@ public class FifteenPuzzleApp {
         //create puzzle state - with solution
         PuzzleState puzzleStateJanusz = new PuzzleState.PuzzleStateBuilder(array2D).build();
         //generate random unsolved(probably) state
-        PuzzleState puzzleState = FifteenPuzzleStateGenerator.generateRandomState(puzzleStateJanusz, 17);
-        puzzleState.setLastMoveToNull();
-        System.out.println("Random state:");
-        System.out.println(puzzleState.toString());
+      
    /*   
       //create graph(using BFS strategy) used by DFS and BFS alghorithms
       Graph grafJanusz = new Graph.GraphBuilder(puzzleState).depth(17).build();
@@ -130,23 +127,33 @@ public class FifteenPuzzleApp {
         }
         
         */
-        Node bfsSolution = new BFSGraphBuilderAndSolver.GraphBuilderAndSolver(puzzleState).depth(17).buildAndSolve();
+        PuzzleState puzzleState1 = FifteenPuzzleStateGenerator.generateRandomState(puzzleStateJanusz, 17);
+        puzzleState1.setLastMoveToNull();
+        System.out.println("Random state:");
+        System.out.println(puzzleState1.toString());
+        Node bfsSolution = new BFSGraphBuilderAndSolver.GraphBuilderAndSolver(puzzleState1).depth(17).buildAndSolve();
         if (bfsSolution != null) {
             System.out.println("BFS optimized:");
             System.out.println(bfsSolution.getDepth());
             System.out.println(bfsSolution.getPuzzleState().toString());
+            displayPath(bfsSolution);
         }
+        
+       // System.out.println("done");
 
-        System.out.println("done");
 
-
-        Node bestSolution = new BestFirstSearchAlgorithm.GraphBuilderAndSolver(puzzleState).depth(17).buildAndSolve(1);
+        PuzzleState puzzleState2 = FifteenPuzzleStateGenerator.generateRandomState(puzzleStateJanusz, 60);
+        puzzleState2.setLastMoveToNull();
+        System.out.println("Random state:");
+        System.out.println(puzzleState2.toString());
+        Node bestSolution = new BestFirstSearchAlgorithm.GraphBuilderAndSolver(puzzleState2).depth(80).buildAndSolve(1);
         if (bestSolution != null) {
             System.out.println("Best First Search:");
             System.out.println(bestSolution.getDepth());
             System.out.println(bestSolution.getPuzzleState().toString());
+            displayPath(bestSolution);
         }
-        displayPath(bestSolution);
+        
 
         //BFS zoptymalizowany - jest podczas budowy szuka od razu - lepiej sie hcyba nie
         //da, zawsze znajdzie najszybsze rozwiazanie
